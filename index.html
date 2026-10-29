@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knedlíková liga – Knedlíkino</title>
+<meta name="description" content="Týdenní soutěž diváků ve hrách s Knedlíkem na TikTok LIVE.">
+<link rel="icon" href="logo.jpg">
+<style>
+  :root { --bg:#120b06; --card:#1d140c; --line:#3a2a1a; --gold:#ffd43b; --gold2:#f59f00; --txt:#f8f1e7; --mut:#b9a58f; }
+  * { box-sizing:border-box }
+  body { margin:0; background:radial-gradient(1200px 600px at 50% -200px,#3a2410 0%,var(--bg) 60%); color:var(--txt); font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:720px; margin:0 auto; padding:28px 16px 60px }
+  header { display:flex; gap:18px; align-items:center; margin-bottom:22px }
+  header img { width:84px; height:84px; border-radius:50%; box-shadow:0 0 0 3px var(--gold2) }
+  h1 { margin:0; font-size:30px; letter-spacing:.3px } h1 span { color:var(--gold) }
+  .sub { color:var(--mut); margin:2px 0 8px }
+  .live { display:inline-flex; gap:7px; align-items:center; font-size:13px; padding:3px 10px; border-radius:99px; border:1px solid var(--line); color:var(--mut) }
+  .live i { width:8px; height:8px; border-radius:50%; background:#666; display:inline-block } .live.on i { background:#ff4d4d; box-shadow:0 0 8px #ff4d4d } .live.on { color:#ffb3b3; border-color:#5a2222 }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:18px; margin:16px 0 }
+  h2 { margin:0 0 4px; font-size:20px; color:var(--gold) } .muted { color:var(--mut); font-size:14px }
+  ol.board { list-style:none; margin:12px 0 0; padding:0 }
+  ol.board li { display:grid; grid-template-columns:42px 1fr auto auto; gap:10px; align-items:center; padding:10px 12px; border-radius:12px; margin:6px 0; background:#24190f }
+  ol.board li.top1 { background:linear-gradient(90deg,#4a3608,#24190f) } ol.board li.top2 { background:linear-gradient(90deg,#3a3a3f,#24190f) } ol.board li.top3 { background:linear-gradient(90deg,#4a2a12,#24190f) }
+  .rank { font-weight:800; text-align:center; font-size:18px } .name { font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+  .pts { color:var(--gold); font-weight:800 } .games { color:var(--mut); font-size:13px; min-width:34px; text-align:right }
+  .empty { color:var(--mut); padding:14px 4px }
+  ul.steps { margin:10px 0 0; padding-left:20px } ul.steps li { margin:4px 0 }
+  .games-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px }
+  .g { background:#24190f; border-radius:14px; padding:12px } .g b { display:block; margin-bottom:2px } .g p { margin:0; color:var(--mut); font-size:14px }
+  details { background:#24190f; border-radius:12px; padding:10px 12px; margin:8px 0 } summary { cursor:pointer; font-weight:700 }
+  footer { text-align:center; color:var(--mut); font-size:14px; margin-top:28px } a { color:var(--gold) }
+  @media (max-width:520px){ .games-grid{grid-template-columns:1fr} h1{font-size:24px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="logo.jpg" alt="Knedlíkino">
+    <div>
+      <h1>Knedlíková <span>liga</span></h1>
+      <div class="sub">Týdenní soutěž diváků ve hrách s Knedlíkem</div>
+      <span class="live" id="live"><i></i><span>stream je offline</span></span>
+    </div>
+  </header>
+
+  <section class="card">
+    <h2>Aktuální pořadí</h2>
+    <div class="muted" id="weekLabel">Týden …</div>
+    <ol class="board" id="board"><li class="empty">Načítám…</li></ol>
+  </section>
+
+  <section class="card">
+    <h2>Jak liga funguje</h2>
+    <ul class="steps">
+      <li>Na LIVE <b>@knedlikino</b> hraj minihry s Knedlíkem. Za každou výhru dostaneš body.</li>
+      <li>Liga běží <b>od pondělí do neděle</b>, v pondělí začíná nový týden od nuly.</li>
+      <li>V neděli vyhlásíme <b>3 nejlepší hráče týdne</b>.</li>
+      <li>Hrát může každý, stačí psát do chatu.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Hry v lize</h2>
+    <div class="games-grid">
+      <div class="g"><b>🧠 Kvíz</b><p>Napiš A, B, C nebo D. První správná odpověď = 3 body, další správné 1 bod.</p></div>
+      <div class="g"><b>⚡ Rychlá reakce</b><p>Po odpočtu se ukáže slovo. Kdo ho napíše první, má 2 body.</p></div>
+      <div class="g"><b>🔢 Hádej číslo</b><p>Knedlík si myslí číslo 1–100 a radí víc / míň. Kdo trefí, má 3 body.</p></div>
+      <div class="g"><b>⚽ Slovní fotbal</b><p>Slovo na poslední písmeno předchozího. Každé platné slovo = 1 bod, nejlepší hráč kola +2.</p></div>
+      <div class="g"><b>🎰 Losování</b><p>Napiš LOS. Vylosovaný hráč je Král knedlíků a má 5 bodů.</p></div>
+      <div class="g"><b>🗳️ Hlasování</b><p>Rozhodni, co je lepší – pivo, nebo kofola? (bez bodů, jen pro radost)</p></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Dobré vědět</h2>
+    <p class="muted"><b>Knedlík je AI postavička.</b> Čte chat, odpovídá, hraje hry a vyhlašuje výsledky sám.</p>
+    <p class="muted"><b>Pořadí odpovědí.</b> To, co vidíš v chatu na svém telefonu, nemusí být skutečné pořadí – bod bere ten, jehož odpověď dorazí Knedlíkovi první.</p>
+    <p class="muted"><b>Výhry.</b> Třem nejlepším za týden napíšeme do zpráv na TikToku z účtu @knedlikino.</p>
+  </section>
+
+  <section class="card">
+    <h2>Uzavřené týdny</h2>
+    <div id="past" class="muted">Zatím žádné.</div>
+  </section>
+
+  <footer>Sleduj <a href="https://www.tiktok.com/@knedlikino" target="_blank" rel="noopener">@knedlikino</a> na TikToku · <span id="upd"></span></footer>
+</div>
+<script>
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const pts = n => `${n} ${n === 1 ? 'bod' : n >= 2 && n <= 4 ? 'body' : 'bodů'}`;
+function rows(list, max = 50) {
+  if (!list || !list.length) return '<li class="empty">Zatím nikdo nebodoval – přijď na LIVE a buď první! 🥟</li>';
+  return list.slice(0, max).map((p, i) => `<li class="${i < 3 ? 'top' + (i + 1) : ''}"><span class="rank">${['🥇', '🥈', '🥉'][i] || (i + 1) + '.'}</span><span class="name">${esc(p.name)}</span><span class="pts">${pts(p.points)}</span><span class="games">${p.games}×</span></li>`).join('');
+}
+async function load() {
+  try {
+    const r = await fetch('liga.json?t=' + Date.now()); const d = await r.json();
+    const cur = d.weeks && d.weeks[0];
+    document.getElementById('weekLabel').textContent = cur ? 'Týden ' + cur.label : '';
+    document.getElementById('board').innerHTML = rows(cur && cur.players);
+    const past = (d.weeks || []).slice(1);
+    document.getElementById('past').innerHTML = past.length ? past.map(w => `<details><summary>${esc(w.label)} – ${(w.players || []).slice(0, 3).map((p, i) => ['🥇', '🥈', '🥉'][i] + ' ' + esc(p.name)).join(' ')} <span class="muted">· ${w.players.length} hráčů</span></summary><ol class="board">${rows(w.players, 100)}</ol></details>`).join('') : 'Zatím žádné.';
+    const isLive = !!d.live && Date.now() - Date.parse(d.updated) < 40 * 60000; const live = document.getElementById('live'); live.classList.toggle('on', isLive); live.querySelector('span').textContent = isLive ? 'stream právě běží' : 'stream je offline';
+    document.getElementById('upd').textContent = d.updated ? 'aktualizováno ' + new Date(d.updated).toLocaleString('cs-CZ', { day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
+  } catch (e) { document.getElementById('board').innerHTML = '<li class="empty">Žebříček se nepodařilo načíst.</li>'; }
+}
+load(); setInterval(load, 60000);
+</script>
+</body>
+</html>
